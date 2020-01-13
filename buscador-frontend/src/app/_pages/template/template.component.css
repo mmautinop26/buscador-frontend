@@ -1,0 +1,122 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .mat-form-field-filtro{
+    margin: 0px auto;
+  }
+  
+  .mat-expansion-panel-header:hover{
+    background: #FAAB1A !important;
+  }
+  
+  .filtro{
+    color: #EDF0F2;
+    font-size: 16px;
+    margin: 20px !important;
+    font-weight: 500;
+  }
+  .example-is-mobile .example-toolbar {
+    position: fixed;
+    z-index: 2;
+  }
+  
+  h1.example-app-name {
+    margin-left: 8px;
+  }
+  
+  .example-sidenav-container {
+    flex: 1;
+  }
+  
+  .example-is-mobile .example-sidenav-container {
+    flex: 1 0 auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 12px;
+    width: 100%;
+  }
+  
+  
+  .mat-card-class {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+  }
+  
+  mat-expansion-panel{
+    width: 250px;
+    background-color: #344955;
+  }
+  
+  mat-panel-title{
+    color: #EDF0F2;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  mat-form-field {
+    margin-right: 12px;
+  }
+  
+  button{
+    background: #FAAB1A;
+  }
+  
+  .mat-form-field {
+    color: #EDF0F2!important;
+  }
+  
+  .mat-select-value{
+    color: #EDF0F2!important;
+  }
+  
+  .mat-button-reload {
+    padding-left: 1px;
+    padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  
+  ::ng-deep .mat-expansion-indicator::after{
+    color: #FFFFFF !important;
+  }
+  
+  .c1 ::ng-deep .mat-focused .mat-form-field-label .mat-select-value{
+    /*change color of label*/
+    color: white !important;
+   }
+  
+  .c1 ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: white !important;
+  }
+  
+  .c1 ::ng-deep .mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: white !important;
+  }
+  
+  .c1::ng-deep .mat-select-value {
+    color: white!important;
+  }  

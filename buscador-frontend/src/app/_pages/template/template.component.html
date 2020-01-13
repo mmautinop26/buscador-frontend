@@ -1,0 +1,96 @@
+<div style="padding-bottom: 50px">
+    <mat-panel-title fxLayoutAlign="center" style="font-size: 1.3em; padding-top: 30px; padding-bottom: 30px; color: #FAAB1A; font-weight: 700; text-align: center; margin-left: 5px;">Oportunidades de Negocios <br/> v 2.0</mat-panel-title>
+    <div fxLayout="row">
+      <div class="mat-logo" style="padding-top: 10px; padding-bottom: 10px; padding-left: 18px">
+        <img height="42" width="111" src="assets/images/osce.png" alt="osce logo" style="margin-right: 10px; background-color: #FFFFFF; border-radius: 5px; ">
+      </div>
+      &nbsp;
+      <div class="mat-logo" style="padding-top: 10px; padding-bottom: 10px; padding-right: 10px">
+        <img height="45" width="111" src="assets/images/seace.png" alt="osce logo">
+      </div>
+    </div>
+  </div>
+  
+  <p class="filtro">Filtros de búsqueda:</p>
+  <mat-accordion>
+  
+    <mat-expansion-panel [expanded]=false hideToggle class="mat-form-field-filtro" routerLink="/georeferenciacion" routerLinkActive="active">
+      <mat-expansion-panel-header routerLink="/georeferenciacion" routerLinkActive="active">
+        <mat-panel-title>
+          <mat-icon style="margin-right: 7px;" matSuffix mat-icon-button>room</mat-icon>
+          Georeferenciación
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="validaPanelSimple" class="mat-form-field-filtro"  routerLink="/descripcion" routerLinkActive="active">
+      <mat-expansion-panel-header routerLink="/descripcion" routerLinkActive="active">
+        <mat-panel-title>
+          <mat-icon style="margin-right: 7px;" matSuffix mat-icon-button>search</mat-icon>
+          Búsqueda por descripción
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field class="c1">
+        <mat-label>Descripción</mat-label>
+        <input matInput [(ngModel)]="oportunidad.detItem" autocomplete="off" autofocus>
+      </mat-form-field>
+      <button mat-flat-button class="mat-button-reload" (click)="busquedaSimple()">
+        <mat-icon matSuffix>search</mat-icon>Buscar
+      </button>
+      &nbsp;
+      <button mat-flat-button class="mat-button-reload" style="background: #EDF0F2" (click)="limpiar()">
+        Limpiar
+      </button>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="validaPanelMultiple" class="mat-form-field-filtro"  routerLink="/buscar" routerLinkActive="active">
+      <mat-expansion-panel-header routerLink="/buscar" routerLinkActive="active">
+        <mat-panel-title>
+          <mat-icon style="margin-right: 7px;" matSuffix mat-icon-button>bar_chart</mat-icon>
+          Búsqueda avanzada
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field class="c1">
+          <mat-label>Descripción</mat-label>
+        <input matInput [(ngModel)]="oportunidad.sintesisProceso" autocomplete="off" autofocus>
+      </mat-form-field>
+      <mat-form-field  class="c1">
+        <mat-label>Objeto</mat-label>
+        <mat-select [(ngModel)]="oportunidad.codObjeto">
+          <mat-option *ngFor="let item of tipoObjeto" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field  class="c1">
+        <mat-label>Tipo de Procedimiento</mat-label>
+        <mat-select [(ngModel)]="oportunidad.codTipoProceso">
+          <mat-option *ngFor="let item of tipoProceso" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field  class="c1">
+        <mat-label>Departamento</mat-label>
+        <mat-select [(ngModel)]="oportunidad.ubigeo">
+          <mat-option *ngFor="let item of tipoDepartamento" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button (click)="busquedaTotal()" class="mat-button-reload">
+        <mat-icon matSuffix>search</mat-icon>Buscar
+      </button>
+      &nbsp;
+      <button mat-flat-button class="mat-button-reload" style="background: #EDF0F2" (click)="limpiar()">
+        Limpiar
+      </button>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]=false hideToggle class="mat-form-field-filtro"  routerLink="/segmento" routerLinkActive="active">
+      <mat-expansion-panel-header routerLink="/segmento" routerLinkActive="active">
+        <mat-panel-title>
+          <mat-icon style="margin-right: 7px;" matSuffix mat-icon-button>dashboard</mat-icon>
+          Resumen por segmentos
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+  

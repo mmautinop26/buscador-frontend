@@ -1,0 +1,171 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  flex: 1 0 auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 12px;
+  width: 100%;
+}
+
+
+.mat-card-class {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+
+.mat-card-class {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+.mat-toolbar {
+  background: #D2DBE0;
+  color: rgba(0,0,0,.87);
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 50px;
+}
+
+mat-sidenav{
+  background-color: #344955;
+  height: 100%;
+}
+
+.mat-form-field-ripple {
+  background-color: #D2DBE0
+}
+
+.column-td-datatable{
+  font-size: 12px;
+  color: #4A6572;
+}
+
+.column-item-data{
+  font-size: 13px;
+  color: #4A6572;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #EDF0F2!important;
+}
+
+.mat-card-content-ext{
+  background-color: #EDF0F2;
+  padding-top: 0px;
+  padding-bottom: 30px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+mat-card-title {
+  color: #4A6572;
+}
+
+th{
+  color: #4A6572;
+  font-weight: bold;
+}
+
+button{
+  background: #FAAB1A
+}
+mat-label{
+  color: #4A6572;
+}
+
+
+.column-detEntidad{
+  width: 17%;
+  font-size: 12px;
+}
+
+.column-fechaConvocatoria{
+  width: 10%;
+  font-size: 12px;
+}
+
+.column-nomenclatura{
+  width: 13%;
+  font-size: 12px;
+}
+
+.column-nroItem{
+  width: 5%;
+  font-size: 12px;
+}
+
+.column-detObjeto{
+  width: 8%;
+  font-size: 12px;
+}
+
+.column-sintesisProceso{
+  width: 17%;
+  font-size: 12px;
+}
+
+.column-detItem{
+  width: 17%;
+  font-size: 12px;
+}
+
+.column-valorReferencial{
+  text-align: center;
+  width: 9%;
+  font-size: 12px;
+}
+
+.column-ficha{
+  width: 4%;
+}
+
+.column-item-data{
+  font-size: 12px;
+  color: #4A6572;
+}
+
+.column-td-datatable{
+  font-size: 12px;
+  color: #4A6572;
+}
+
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type{
+  padding: 0px;
+}

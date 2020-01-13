@@ -1,0 +1,64 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <div style="width: 50%">
+      <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+  </div>
+  <div style="width: 50%;" fxLayoutAlign="end">
+      <button mat-icon-button
+      matTooltip="Tiene una sugerencia para mejorar esta buscador"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"
+      class="example-button" (click)="openModalSugerencia()">
+        <mat-icon>mail_outline</mat-icon>
+      </button>
+  </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56" [opened]="true">
+      <app-template></app-template>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-card>
+          <span style="padding-top: 2px; color: #969696; font-size: 0.9">Oportunidades de negocios > Resumen por segmentos</span>
+          <br/><br/>
+          <mat-form-field style="width: 40%">
+              <mat-label style="font-style: italic;">Ingrese texto de búsqueda aquí</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)" autocomplete="false" >
+          </mat-form-field>
+        <table mat-table [dataSource]="dataSource" matSort class="div-container">
+          <ng-container matColumnDef="codigoSegmento">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-codigo"> Codigo </th>
+            <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.codigoSegmento}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tituloSegmento">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-nombre"> Segmento del CUBSO </th>
+            <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.tituloSegmento}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cantidadProcesos">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-cantidad"> Cantidad de procesos </th>
+            <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.cantidadProcesos}} </td>
+          </ng-container>
+          <ng-container matColumnDef="seleccionar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header  class="column-ficha"> seleccionar </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon" [routerLink]="['segmentoLista/' , row.codigoSegmento]">
+                <mat-icon>check</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[20, 40]"></mat-paginator>
+        <br/>
+        <span style="color: #787878">
+            Actualizado al {{sysdate}}   / Fuente: SEACE (Procedimientos de selección bajo Ley N° 30225 y otros regímenes especiales de contratación tal como el Procedimiento de Contratación Pública Especial para la Reconstrucción por Cambios, entre otros).
+        </span>
+      </mat-card>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
