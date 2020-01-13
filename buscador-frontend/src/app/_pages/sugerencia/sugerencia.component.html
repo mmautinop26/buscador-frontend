@@ -1,0 +1,51 @@
+
+
+    <h2 mat-dialog-title>Danos tu sugerencia</h2>
+    <div>
+      <form class="my-form"  [formGroup]="frmSugerencia" [style.fontSize.px]="'15'">
+
+        <ul>
+        <li style="list-style:none; font-size: 15px; margin: 0px;">
+            <mat-checkbox class="example-margin" [(ngModel)]="checked1" formControlName="lista" >Faltan datos en la información obtenida.</mat-checkbox>
+        </li>
+        <li style="list-style:none; font-size: 15px">
+            <mat-checkbox class="example-margin" [(ngModel)]="checked2" formControlName="lista" >La información obtenida es incorrecta</mat-checkbox>
+        </li>
+        <li style="list-style:none; font-size: 15px">
+            <mat-checkbox class="example-margin" [(ngModel)]="checked3" formControlName="lista" >Algo aquí no funciona.</mat-checkbox>
+        </li>
+        <li style="list-style:none; font-size: 15px">
+            <mat-checkbox class="example-margin" [(ngModel)]="checked4" formControlName="lista" >Sugerencias para mejorar el módulo.</mat-checkbox>
+        </li>
+        <li style="list-style:none; font-size: 15px">
+            <mat-checkbox class="example-margin" [(ngModel)]="checked5" formControlName="lista" >Otros.</mat-checkbox>
+        </li>
+      </ul>
+
+        <mat-form-field style="width: 100%" [style.fontSize.px]="'15'" *ngIf="checked5">
+          <mat-label style="color: #4A6572;">Comentario</mat-label>
+          <textarea matInput [(ngModel)]="sugerencia.comentario" formControlName="comentario" rows="3" style="font-size: 15px" autocomplete="off" autofocus></textarea>
+          <mat-icon class="button" *ngIf="sugerencia.comentario" matSuffix mat-icon-button (click)="sugerencia.comentario=''">close</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field  style="width: 100%" [style.fontSize.px]="'15'">
+          <mat-label style="color: #4A6572;">Correo electrónico</mat-label>
+          <input matInput placeholder="Correo electrónico" formControlName="email" [(ngModel)]="sugerencia.email" autocomplete="off" autofocus required email>
+            <mat-icon class="button" *ngIf="sugerencia.email" matSuffix mat-icon-button (click)="sugerencia.email=''">close</mat-icon>
+          <mat-error>
+            <span *ngIf="frmSugerencia.get('email').hasError('required')">Campo <strong>obligatorio</strong></span>
+          </mat-error>
+          <mat-error>
+            <span *ngIf="frmSugerencia.get('email').hasError('email')">El correo electrónico no es válido</span>
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-dialog-actions align="end">
+          <button mat-button mat-dialog-close color="accent">Cerrar</button>
+          <button mat-raised-button (click)="guardarSugerencia()" [disabled]="frmSugerencia.invalid" cdkFocusInitial>
+            <mat-icon matSuffix> message</mat-icon>  Enviar
+          </button>
+        </mat-dialog-actions>
+      </form>
+    </div>

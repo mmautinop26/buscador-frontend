@@ -1,0 +1,129 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <div style="width: 50%">
+      <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+  </div>
+  <div style="width: 50%;" fxLayoutAlign="end">
+      <button mat-icon-button
+      matTooltip="Tiene una sugerencia para mejorar esta buscador"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"
+      class="example-button" (click)="openModalSugerencia()">
+        <mat-icon>mail_outline</mat-icon>
+      </button>
+  </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56" [opened]="true">
+      <app-template (emisor)="busquedaFiltros($event)" [validaPanelMultiple]="validaPanelMultiple"></app-template>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-card>
+          <span style="padding-top: 2px; color: #969696; font-size: 0.9">Oportunidades de negocios > Búsqueda avanzada</span>
+          <h2 style="text-align: center; color: brown">Existen {{countBusquedaTotal}} oportunidades de negocio con el Estado en todo el país</h2>
+          <div fxLayoutAlign="end" *ngIf="countBusqueda" style="padding-bottom: 10px">
+            <button mat-stroked-button (click)="exportAsXLSX()" matTooltip="Descargar datos en EXCEL" style="background: #3A6B82; color: #EDF0F2">
+                <i class="material-icons">cloud_download</i>
+              Excel
+            </button>
+            &nbsp;&nbsp;
+            <button mat-stroked-button (click)="exportAsCSV()" matTooltip="Descargar datos en CSV">
+                <i class="material-icons">cloud_download</i>
+              CSV
+            </button>
+          </div>
+          <mat-card-title *ngIf="countBusqueda" style="font-size: 1.1em">Se encontraron {{countBusqueda}} oportunidades de negocio según su criterio de búsqueda<mat-divider></mat-divider></mat-card-title>
+              <mat-form-field *ngIf="countBusqueda" style="width: 25%">
+                <mat-label style="font-style: italic;">Ingrese texto de búsqueda aquí</mat-label>
+              <input matInput (keyup)="applyFilter($event.target.value)" autocomplete="false" >
+            </mat-form-field>
+        
+          <table mat-table [dataSource]="dataSource" class="div-container" *ngIf="countBusqueda" matSort fxHide.lt-md="true">
+            <ng-container matColumnDef="detEntidad">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-detEntidad"> Entidad </th>
+              <td mat-cell *matCellDef="let row" class="column-td-datatable"> {{row.detEntidad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaConvocatoria">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header  class="column-fechaConvocatoria"> Fecha Fin Reg. Participantes.</th>
+              <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.fecFinParticipantes}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nomenclatura">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-nomenclatura"> Procedimiento </th>
+              <td mat-cell *matCellDef="let row" class="column-td-datatable"> {{row.nomenclatura}} </td>
+            </ng-container>
+            <ng-container matColumnDef="detObjeto">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-detObjeto"> Objeto </th>
+              <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.detObjeto}} </td>
+            </ng-container>
+            <ng-container matColumnDef="sintesisProceso">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-sintesisProceso"> Descripción procedimiento </th>
+              <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.sintesisProcesoStr}} <a [hidden]="row.sintesisProceso.length < 60" style="cursor: pointer; color:#1F77B4; font-weight: 700" (click)="mensaje(row.sintesisProceso)"  matTooltip="{{row.sintesisProceso}}" >... (más)</a></td>
+            </ng-container>
+            <ng-container matColumnDef="detItem">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-detItem"> Descripción ítem </th>
+              <td mat-cell *matCellDef="let row" class="column-item-data"> {{row.detItemStr}} <a [hidden]="row.detItem.length < 60" style="cursor: pointer; color:#1F77B4; font-weight: 700" (click)="mensaje(row.detItem)"  matTooltip="{{row.detItem}}" >... (más)</a>
+            </td>
+            </ng-container>
+            <ng-container matColumnDef="nroItem">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-nroItem"> Nro ítem </th>
+              <td mat-cell *matCellDef="let row" class="column-item-data" style="text-align: center"> {{row.nroItem}} </td>
+            </ng-container>
+            <ng-container matColumnDef="valorReferencial">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-valorReferencial"> VR/VE </th>
+              <td mat-cell *matCellDef="let row" class="column-item-data" style="text-align: center"> {{row.valorReferencial}} {{row.monedaProceso}}</td>
+            </ng-container>
+            <ng-container matColumnDef="ficha">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header  class="column-ficha"> </th>
+              <td mat-cell *matCellDef="let row" >
+                  <button class="button-font-color" mat-icon-button aria-label="Example icon-button with a heart icon"  [routerLink]="['/ficha/idProceso/' , row.idProcedimiento]">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+        
+        <table mat-table [dataSource]="dataSource" class="div-container" *ngIf="countBusqueda" matSort  fxShow.gt-xs="false">
+          <div  matColumnDef="card" >
+              <span *matHeaderCellDef> </span> 
+              <td mat-cell *matCellDef="let row" class="column-td-datatable" >
+                <mat-card class="mat-elevation-z8">
+                  <mat-card-title style="font-size: 1.2em;" >{{row.detEntidad}}</mat-card-title>
+                  <mat-card-content>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >Fecha fin reg. participantes:&nbsp;</span> <span style="font-weight: 400;">{{row.fecFinParticipantes}}</span> </p>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >Nomenclatura:&nbsp;</span><span style="font-weight: 400;">{{row.nomenclatura}}</span> </p>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >Objeto:&nbsp;</span> <span style="font-weight: 400;">{{row.detObjeto}}</span> </p>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >Descripción del proceso:&nbsp;</span> <span style="font-weight: 400;">{{row.sintesisProceso}}</span> </p>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >Descripción del ítem:&nbsp;</span> <span style="font-weight: 400;">{{row.detItem}}</span> </p>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >Nro de ítem:&nbsp;</span> <span style="font-weight: 400;">{{row.nroItem}}</span> </p>
+                <p style="color: #4A6572;"><span style="font-weight: bold; text-align: justify;" >VR/VE:&nbsp;</span> <span style="font-weight: 400;">{{row.valorReferencial}}</span> </p>
+                <p fxLayoutAlign="end"><button class="button-font-color" mat-icon-button aria-label="Example icon-button with a heart icon"  [routerLink]="['/ficha/idProceso/' , row.idProcedimiento]">
+                  <mat-icon>search</mat-icon>
+                </button></p>
+                
+              </mat-card-content>
+            </mat-card>
+            <br/>
+              </td>    
+            </div>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsCard"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsCard;">
+        </tr>
+      </table>
+      <div [hidden]="!countBusqueda">
+        <mat-paginator  [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+        <br/>
+        <span style="color: #787878">
+            Procedimientos de selección con etapa de Registro de participantes vigente. <br/>Actualizado al {{sysdate}}  /  Fuente: SEACE (Procedimientos de selección bajo Ley N° 30225 y otros regímenes especiales de contratación tal como el Procedimiento de Contratación Pública Especial para la Reconstrucción por Cambios, entre otros).
+        </span>
+      </mat-card>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>
